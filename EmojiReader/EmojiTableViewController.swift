@@ -25,11 +25,27 @@ class EmojiTableViewController: UITableViewController {
         self.title = "Emoji reader"
         self.navigationItem.leftBarButtonItem = self.editButtonItem //кнопка Edit/Done
         
-       
-       
         //строка не нужна так как идентификатор назначен в интерфейсбилдере
         //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "jacheyka")
     }
+    
+    @IBAction func unwindSegue(segue: UIStoryboardSegue) {
+         guard segue.identifier == "saveSegue" else {return}
+        
+        let sourceVC = segue.source as! NewEmojiTableViewController //прокастились до того экрана с которого получим данные
+        let emoji = sourceVC.emoji // добрались до данных
+        
+        let newIndexPath = IndexPath(row: objects.count, section: 0) //добавление последний строки массива в константу newIndexPath
+        objects.append(emoji) //добавление в массив нового emoji
+        
+        //обновление таблицы
+        tableView.insertRows(at: [newIndexPath], with: .fade) // добавление в таблицу нового значения константы newIndexPath
+        
+        
+        
+    }
+    
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -82,6 +98,7 @@ class EmojiTableViewController: UITableViewController {
         let favorite = favoriteAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [done, favorite])
     }
+  
     //логика кнопки с левой стороны при свайпе(кнопка - галочка)
     func doneAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Done") { (action, view, completion) in
@@ -93,6 +110,7 @@ class EmojiTableViewController: UITableViewController {
         action.image = UIImage(systemName: "checkmark.circle")
         return action
     }
+   
     //логика кнопки с левой стороны при свайпе(кнопка - сердце)
     func favoriteAction(at indexPath: IndexPath) -> UIContextualAction {
         var object = objects[indexPath.row]

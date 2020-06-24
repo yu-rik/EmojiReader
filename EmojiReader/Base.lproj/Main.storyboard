@@ -183,17 +183,26 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="1vh-l8-V1f">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="done" id="wh7-Nh-ESA"/>
-                        <barButtonItem key="rightBarButtonItem" title="Save" style="done" id="dTs-su-bKq"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" style="done" id="wh7-Nh-ESA">
+                            <connections>
+                                <segue destination="Ic9-gs-lUr" kind="unwind" unwindAction="unwindSegueWithSegue:" id="gFA-Ev-az2"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Save" style="done" id="dTs-su-bKq">
+                            <connections>
+                                <segue destination="Ic9-gs-lUr" kind="unwind" identifier="saveSegue" unwindAction="unwindSegueWithSegue:" id="7RK-yO-I5e"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="descriptionTextfield" destination="d29-Vv-swG" id="0Mo-qg-Bhd"/>
                         <outlet property="emojiTextfield" destination="QkJ-VL-n3S" id="13n-Eb-ldt"/>
                         <outlet property="nameTextField" destination="8Je-BR-vQ1" id="Cp1-kH-mS2"/>
-                        <outlet property="saveButton" destination="1vh-l8-V1f" id="EEu-CV-VSO"/>
+                        <outlet property="saveButton" destination="dTs-su-bKq" id="ekC-CJ-zzQ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chC-OG-u4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Ic9-gs-lUr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2734.7826086956525" y="141.96428571428569"/>
         </scene>
