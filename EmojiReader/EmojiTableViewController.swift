@@ -35,16 +35,37 @@ class EmojiTableViewController: UITableViewController {
         let sourceVC = segue.source as! NewEmojiTableViewController //прокастились до того экрана с которого получим данные
         let emoji = sourceVC.emoji // добрались до данных
         
-        let newIndexPath = IndexPath(row: objects.count, section: 0) //добавление последний строки массива в константу newIndexPath
-        objects.append(emoji) //добавление в массив нового emoji
-        
-        //обновление таблицы
-        tableView.insertRows(at: [newIndexPath], with: .fade) // добавление в таблицу нового значения константы newIndexPath
-        
-        
+        if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            objects[selectedIndexPath.row] = emoji
+            tableView.reloadRows(at: [selectedIndexPath], with: .fade)
+        } else{
+            let newIndexPath = IndexPath(row: objects.count, section: 0) //добавление последний строки массива в  константу newIndexPath
+            objects.append(emoji) //добавление в массив нового emoji
+           //обновление таблицы
+            tableView.insertRows(at: [newIndexPath], with: .fade) // добавление в таблицу нового значения константы newIndexPath
+            
+        }
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
+        guard segue.identifier == "editEmoji" else {return}
+        
+        let indexPath = tableView.indexPathForSelectedRow! //фиксируем в константу indexPath строку на которой стоим
+        let emoji = objects[indexPath.row] // передаем в emoji  элемент массива с индексом фиксируемым на indexPath
+        
+        //теперь это emoji нужно передать на второй экран
+        //добираемся до navigationController  а потом до NewEmojiTableViewController(нужного)
+        let navigationVC = segue.destination as! UINavigationController
+        let newEmojiVC = navigationVC.topViewController as! NewEmojiTableViewController
+        
+        //присваиваем свойству emoji класса NewEmojiTableViewController константу emoji данного класса
+        newEmojiVC.emoji = emoji
+        //меняем титл
+        newEmojiVC.title = "Edit"
+        
+    }
     
     // MARK: - Table view data source
     

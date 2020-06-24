@@ -17,10 +17,17 @@ class NewEmojiTableViewController: UITableViewController {
     @IBOutlet weak var descriptionTextfield: UITextField!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
+    override func viewDidLoad() {
+         super.viewDidLoad()
+         updateUI()
+         saveButtonState()
+     }
     
     @IBAction func changedAction(_ sender: UITextField) {
         saveButtonState()
     }
+    
+    
     
     private func saveButtonState(){
         let emojiText = emojiTextfield.text ?? ""
@@ -31,11 +38,15 @@ class NewEmojiTableViewController: UITableViewController {
         
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        saveButtonState()
+    //обновление интерфейса
+    private func updateUI() {
+        emojiTextfield.text = emoji.emoji
+        nameTextField.text = emoji.name
+        descriptionTextfield.text = emoji.description
     }
+    
+    
+ 
  
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
