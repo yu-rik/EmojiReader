@@ -24,6 +24,8 @@ class EmojiTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         self.title = "Emoji reader"
         self.navigationItem.leftBarButtonItem = self.editButtonItem //кнопка Edit/Done
+        
+       
        
         //строка не нужна так как идентификатор назначен в интерфейсбилдере
         //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "jacheyka")
